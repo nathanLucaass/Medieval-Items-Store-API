@@ -20,11 +20,18 @@ const productRegister = async (product: RecivedProduct): Promise<LoginResponse> 
   }
   
   const newProduct = await productModel.create(product);
-  console.log(newProduct);
-  
+
   const { orderId, ...productWhitoutOrderId } = newProduct.toJSON();
   
   return { status: 'SUCCESS', data: productWhitoutOrderId };
 };
 
-export default productRegister;
+const getAllProducts = async (): Promise<Product[]> => {
+  const products = await productModel.findAll();
+
+  const mappedProducts: Product[] = products.map((item) => item.toJSON());
+
+  return mappedProducts;
+};
+
+export { productRegister, getAllProducts };

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import productRegister from '../../../src/services/product.services';
+import { productRegister, getAllProducts } from '../../../src/services/product.services';
 import productModel from '../../../src/database/models/product.model';
 
 describe('ProductsService', function () {
@@ -14,6 +14,7 @@ describe('ProductsService', function () {
       data: 'Some fields are missing',
     });
   });
+  
   it('should return a product if all fields are provided', async function () {
     const product = {
       name: 'Product Name',
@@ -35,5 +36,28 @@ describe('ProductsService', function () {
   
     expect(result.status).to.equal('SUCCESS');
   });
+
+  describe('getAllProducts', function () {
+    it('should return an array of products', async function () {
+      const products = [
+        {
+          id: 1,
+          name: 'Product Name',
+          price: 'Product Price',
+          orderId: 1,
+        },
+        {
+          id: 2,
+          name: 'Product Name',
+          price: 'Product Price',
+          orderId: 2,
+        },
+      ];
+      sinon.stub(productModel, 'findAll').resolves(productModel.bulkBuild(products));
   
+      const result = await getAllProducts();
+  
+      expect(result).to.be.deep.equal(products);
+    });
+  });
 });

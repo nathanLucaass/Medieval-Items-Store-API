@@ -2,7 +2,6 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { Request, Response } from 'express';
-import productRegister from '../../../src/services/product.services';
 
 chai.use(sinonChai);
 
