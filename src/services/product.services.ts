@@ -11,15 +11,17 @@ type LoginResponse = {
   status: 'SUCCESS',
   data: Product 
 } | {
-  status: 'ERROR', error: string
+  status: 'ERROR', data: string
 };
 
 const productRegister = async (product: RecivedProduct): Promise<LoginResponse> => {
   if (!product.name || !product.price || !product.orderId) {
-    return { status: 'ERROR', error: 'Some fields are missing' };
+    return { status: 'ERROR', data: 'Some fields are missing' };
   }
   
   const newProduct = await productModel.create(product);
+  console.log(newProduct);
+  
   const { orderId, ...productWhitoutOrderId } = newProduct.toJSON();
   
   return { status: 'SUCCESS', data: productWhitoutOrderId };

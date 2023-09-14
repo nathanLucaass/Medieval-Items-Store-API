@@ -7,7 +7,7 @@ const productRegisterController = async (req: Request, res: Response): Promise<v
   if (response.status === 'SUCCESS') {
     res.status(201).json(response.data);
   } else {
-    res.status(400).json({ error: response.error });
+    res.status(400).json({ error: response.data });
   }
 };
 
