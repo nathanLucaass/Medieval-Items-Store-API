@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'; 
-import { productRegister, getAllProducts } from '../../services/product.services';
+import { productRegister, getAllProducts } from '../services/product.services';
 
 const productRegisterController = async (req: Request, res: Response): Promise<void> => { // Promise<void> means that the function does not return anything
   const response = await productRegister(req.body);
