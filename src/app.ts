@@ -3,13 +3,14 @@ import { productRegisterController, getAllProductsController }
   from './controller/product.controller';
 // import getAllOrdersController from './controller/order.controller';
 import loginController from './controller/login.controller';
+import { nameValidator, priceValidator } from './middlewares/productValidator';
 
 const app = express();
 
 app.use(express.json());
 
 // Product routes
-app.post('/products', productRegisterController); // Post a new product
+app.post('/products', nameValidator, priceValidator, productRegisterController); // Post a new product
 app.get('/products', getAllProductsController); // Get all products
 
 // Order routes
