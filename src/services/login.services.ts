@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import UserModel from '../database/models/user.model';
 import { TokenPayload } from '../types/Token';
-import generateToken from './token.services';
+import generateToken from '../token';
 
 type LoginResponse = {
   status: 'SUCCESS',

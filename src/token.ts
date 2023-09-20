@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { TokenPayload } from '../types/Token';
+import { TokenPayload } from './types/Token';
 
 const generateToken = (username: string, password: string): TokenPayload => {
   const jwtPayload = {

@@ -2,6 +2,9 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import login from '../../../src/services/login.services';
 import UserModel from '../../../src/database/models/user.model';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import * as token from '../../../src/token';
 
 describe('LoginService', function () {
   beforeEach(function () { sinon.restore(); });
@@ -24,6 +27,25 @@ describe('LoginService', function () {
       status: 'ERROR',
       data: 'Username or password invalid',
     });
+  });
+
+  it('should return a token if user is found', async function () {
+    const returnUser = UserModel.build({ 
+      id: 1, 
+      username: 'user',
+      vocation: 'worker',
+      level: 1,
+      password: 'password',
+    });
+
+    sinon.stub(UserModel, 'findOne').resolves(returnUser);
+    sinon.stub(bcrypt, 'compareSync').returns(true);
+    sinon.stub(jwt, 'sign').returns();
+
+    const response = await login('user', 'password');
+
+    expect(response.data).to.not.be.equal(null)
+
   });
 
 });
