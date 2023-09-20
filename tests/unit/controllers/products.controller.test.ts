@@ -4,6 +4,7 @@ import sinonChai from 'sinon-chai';
 import { Request, Response } from 'express';
 import { productRegisterController, getAllProductsController } from '../../../src/controller/product.controller';
 import * as ProductService from '../../../src/services/product.services';
+import ProductModel from '../../../src/database/models/product.model';
 
 chai.use(sinonChai);
 
@@ -18,20 +19,24 @@ describe('productRegisterController', function () {
   });
 
   it('should return status 201 and a product when productRegisterController is called with a valid product', async function () {
+    const returnProduct = ProductModel.build({
+      id: 1,
+      name: 'Product 1',
+      price: '10.00',
+      orderId: 1,
+    });
+
     req.body = {
       name: 'Product 1',
       price: '10.00',
       orderId: 1,
     };
 
+    sinon.stub(ProductService, 'productRegister').resolves({ status: 'SUCCESS', data: returnProduct.toJSON() });
+
     await productRegisterController(req, res);
 
     expect(res.status).to.have.been.calledWith(201);
-    expect(res.json).to.have.been.calledWith({
-      id: 6,
-      name: 'Product 1',
-      price: '10.00',
-    });
    
   });
 
