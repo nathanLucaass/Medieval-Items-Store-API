@@ -37,6 +37,7 @@ describe('productRegisterController', function () {
     await productRegisterController(req, res);
 
     expect(res.status).to.have.been.calledWith(201);
+    
    
   });
 
