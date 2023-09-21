@@ -1,7 +1,7 @@
 import express from 'express';
 import { productRegisterController, getAllProductsController } 
   from './controller/product.controller';
-// import getAllOrdersController from './controller/order.controller';
+import getAllOrdersController from './controller/order.controller';
 import loginController from './controller/login.controller';
 import { nameValidator, priceValidator } from './middlewares/productValidator';
 
@@ -14,7 +14,7 @@ app.post('/products', nameValidator, priceValidator, productRegisterController);
 app.get('/products', getAllProductsController); // Get all products
 
 // Order routes
-// app.get('/orders', getAllOrdersController); // Get all orders
+app.get('/orders', getAllOrdersController); // Get all orders
 
 // Login route
 app.post('/login', loginController); // Login a existing user
